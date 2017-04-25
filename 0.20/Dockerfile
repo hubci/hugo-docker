@@ -20,7 +20,7 @@ RUN apk add --update --no-cache \
 		wget && \
 	wget "$HUGO_DOWNLOAD_URL" && \
 	tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
-	mv hugo*/hugo* /usr/bin/hugo && \
+	mv hugo*/hugo /usr/bin/hugo && \
 	rm -r hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
 	rm -r hugo* && \
 	gem install \
