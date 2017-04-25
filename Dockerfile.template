@@ -19,12 +19,11 @@ RUN apk add --update --no-cache \
 		rsync \
 		wget && \
 	wget "$HUGO_DOWNLOAD_URL" && \
-	ls -lah && \
 	tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
-	ls -lah && \
-	mv hugo*/hugo /usr/bin/hugo && \
+	mv hugo /usr/bin/hugo && \
 	rm -r hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
-	rm -r hugo* && \
+	rm -r LICENSE.md && \
+	rm -r README.md && \
 	gem install \
 		html-proofer \
 		nokogiri \
