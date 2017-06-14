@@ -29,7 +29,7 @@ jobs:
           command: htmlproofer src/public --allow-hash-href --check-html --empty-alt-ignore --disable-external
 ```
 
-In this example, we assume the Hugo files are in a directory called `src` in the repo.
+In this example, we assume the Hugo files are in a directory called `src` in the repo. A full walkthrough on how to do this can be found on [CircleCI's blog](https://circleci.com/blog/build-test-deploy-hugo-sites/).
 
 ## Building The Images
 
