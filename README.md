@@ -1,4 +1,4 @@
-<img src="https://cdn.rawgit.com/felicianotech/docker-hugo/master/img/logo.svg" alt="Docker Hugo Logo" title="Docker Hugo" width="100%" height="80" />
+<img src="https://cdn.rawgit.com/felicianotech/docker-hugo/3e063d81/img/logo.svg" alt="Docker Hugo Logo" title="Docker Hugo" width="100%" height="80" />
 
 # Docker Hugo [![Build Status](https://circleci.com/gh/felicianotech/docker-hugo.svg?style=shield)](https://circleci.com/gh/felicianotech/docker-hugo) [![Docker Repository](https://img.shields.io/badge/Docker%20Repository-Docker%20Hub-blue.svg)](https://hub.docker.com/r/felicianotech/docker-hugo/) [![Software License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/felicianotech/docker-hugo/master/LICENSE)
 
