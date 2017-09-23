@@ -42,4 +42,8 @@ for i in "${!sortedVersions[@]}"; do
 	string="$string ."
 
 	echo "$string" >> build-images.sh
+
+	# Add lines for new repo
+	echo "$string" >> build-images.sh
+	sed -i "0,/felicianotech\/docker-hugo/ s/felicianotech\/docker-hugo/cibuilds\/hugo/g" build-images.sh
 done
