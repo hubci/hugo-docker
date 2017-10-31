@@ -1,4 +1,4 @@
-FROM ruby:2.3-alpine
+FROM ruby:2.4-alpine
 
 LABEL maintainer="ricardo@feliciano.tech"
 
@@ -18,18 +18,17 @@ RUN apk add --update --no-cache \
 		openssh \
 		rsync \
 		wget && \
-	wget "$HUGO_DOWNLOAD_URL" && \
-	tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
-	mv hugo /usr/bin/hugo && \
-	rm -r hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
-	rm -r LICENSE.md && \
-	rm -r README.md && \
 	gem install \
 		html-proofer \
 		nokogiri \
 	--no-document && \
 	apk del build-dependencies && \
 	rm /var/cache/apk/*
+
+RUN wget "$HUGO_DOWNLOAD_URL" && \
+	tar xzf hugo_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+	mv hugo /usr/bin/hugo && \
+	rm hugo_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE.md README.md
 
 CMD ["htmlproofer","--help"]
 
