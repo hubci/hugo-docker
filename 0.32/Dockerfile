@@ -11,6 +11,7 @@ RUN apk add --update --no-cache \
 		bash \
 		build-base \
 		ca-certificates \
+		curl \
 		git \
 		libcurl \
 		libxml2-dev \
