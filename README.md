@@ -2,7 +2,7 @@
 
 # Docker Hugo [![Build Status](https://circleci.com/gh/felicianotech/docker-hugo.svg?style=shield)](https://circleci.com/gh/felicianotech/docker-hugo) [![Docker Repository](https://img.shields.io/badge/Docker%20Repository-Docker%20Hub-blue.svg)](https://hub.docker.com/r/felicianotech/docker-hugo/) [![Software License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/felicianotech/docker-hugo/master/LICENSE)
 
-A Docker image for [Hugo](http://gohugo.io/), a static-site generator. Includes [HTMLProofer](https://github.com/gjtorikian/html-proofer) for testing. Hosted on [Docker Hub](https://hub.docker.com/r/felicianotech/docker-hugo/).
+A Docker image for [Hugo](http://gohugo.io/), a static-site generator. Includes [HTMLProofer](https://github.com/gjtorikian/html-proofer) for testing. Hosted on [Docker Hub](https://hub.docker.com/r/cibuilds/hugo/).
 
 Currently, this Docker image is designed to be used as a base image on CircleCI 2.0 for building, testing, and deploying Hugo based websites.
 
