@@ -2,7 +2,7 @@ FROM ruby:2.4-alpine
 
 LABEL maintainer="ricardo@feliciano.tech"
 
-ENV HUGO_VERSION=0.42
+ENV HUGO_VERSION=0.42.1
 ENV HUGO_DOWNLOAD_URL=https://github.com/spf13/hugo/releases/download/v${HUGO_VERSION}/hugo_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 RUN apk add --update --no-cache --virtual build-dependencies
