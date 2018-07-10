@@ -14,6 +14,8 @@ RUN apk add --update --no-cache \
 		curl \
 		git \
 		libcurl \
+# Needed for Hugo Extended which uses CGO
+		libc6-compat \
 		libxml2-dev \
 		libxslt-dev \
 		openssh \
