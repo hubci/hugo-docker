@@ -1,6 +1,4 @@
-<img src="https://cdn.rawgit.com/felicianotech/docker-hugo/3e063d81/img/logo.svg" alt="Docker Hugo Logo" title="Docker Hugo" width="100%" height="80" />
-
-# Docker Hugo [![Build Status](https://circleci.com/gh/felicianotech/docker-hugo.svg?style=shield)](https://circleci.com/gh/felicianotech/docker-hugo) [![Docker Repository](https://img.shields.io/badge/Docker%20Repository-Docker%20Hub-blue.svg)](https://hub.docker.com/r/felicianotech/docker-hugo/) [![Software License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/felicianotech/docker-hugo/master/LICENSE)
+# CI Builds: Hugo [![Build Status](https://circleci.com/gh/cibuilds/hugo.svg?style=shield)](https://circleci.com/gh/cibuilds/hugo) [![Docker Repository](https://img.shields.io/badge/Docker%20Repository-Docker%20Hub-blue.svg)](https://hub.docker.com/r/cibuilds/hugo/) [![Software License](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/cibuilds/hugo/master/LICENSE)
 
 A Docker image for [Hugo](http://gohugo.io/), a static-site generator. Includes [HTMLProofer](https://github.com/gjtorikian/html-proofer) for testing. Hosted on [Docker Hub](https://hub.docker.com/r/cibuilds/hugo/).
 
@@ -17,7 +15,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: felicianotech/docker-hugo:0.22.1
+      - image: felicianotech/docker-hugo:0.50
     working_directory: ~/project
     steps:
       - checkout
@@ -41,8 +39,9 @@ I then commit the resulting files and push up to GitHub. CircleCI builds everyth
 
 The following sites use Hugo and this image (and some have their config public):
 
-- <https://Feliciano.Tech> ([config](https://github.com/felicianotech/feliciano.tech/blob/master/.circleci/config.yml))
-- <https://ElectSanchez.com>
+- <https://www.Feliciano.Tech> ([repository](https://github.com/felicianotech/www.feliciano.tech))
+- <https://HugoNewsletter.com> ([repository](https://github.com/felicianotech/hugonewsletter.com))
+- <https://www.DiscourseHub.com> ([repository](https://github.com/discoursehub/www.discoursehub.com))
 
 ## Feedback & Contributing
 
