@@ -11,11 +11,11 @@ I plan to make this image useful for local testing and build/test/deploy on Trav
 Using this image to build your Hugo generated website on CircleCI 2.0 can be as simple as using the following configuration in `.circleci/config.yml`:
 
 ```
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
-      - image: felicianotech/docker-hugo:0.50
+      - image: cibuilds/hugo:0.54
     working_directory: ~/project
     steps:
       - checkout
@@ -41,6 +41,7 @@ The following sites use Hugo and this image (and some have their config public):
 
 - <https://www.Feliciano.Tech> ([repository](https://github.com/felicianotech/www.feliciano.tech))
 - <https://HugoNewsletter.com> ([repository](https://github.com/felicianotech/hugonewsletter.com))
+- <https://DocsThursday.com> ([repository](https://github.com/felicianotech/docsthursday.com))
 - <https://www.DiscourseHub.com> ([repository](https://github.com/discoursehub/www.discoursehub.com))
 
 ## Feedback & Contributing
