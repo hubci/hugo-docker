@@ -1,3 +1,5 @@
+# vim:set ft=dockerfile:
+
 FROM ruby:2.4-alpine
 
 LABEL maintainer="ricardo@feliciano.tech"
