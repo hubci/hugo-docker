@@ -1,16 +1,23 @@
+version: 2.1
+
 workflows:
-  version: 2
   main:
     jobs:
-      - build
+      - build-releases
+      - build-nightly
+  nightly-build:
+    triggers:
+      - schedule:
+          cron: "0 6 * * *"
+          filters:
+            branches:
+              only: master
+    jobs:
+      - build-nightly
 
-
-version: 2.1
 jobs:
-  build:
-    machine:
-      enabled: true
-    working_directory: ~/project
+  build-releases:
+    machine: true
     steps:
       - checkout
       - run:
@@ -22,3 +29,14 @@ jobs:
               docker login -u  $DOCKER_USER -p $DOCKER_PASS
               docker push cibuilds/hugo
             fi
+  build-nightly:
+    machine: true
+    steps:
+      - checkout
+      - run:
+          name: "Build Nightly Docker Image"
+          command: ./build-nightly-image.sh
+      - run:
+          command: |
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push cibuilds/hugo:nightly
