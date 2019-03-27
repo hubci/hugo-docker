@@ -2,13 +2,14 @@
 
 A Docker image for [Hugo](http://gohugo.io/), a static-site generator. Includes [HTMLProofer](https://github.com/gjtorikian/html-proofer) for testing. Hosted on [Docker Hub](https://hub.docker.com/r/cibuilds/hugo/).
 
-Currently, this Docker image is designed to be used as a base image on CircleCI 2.0 for building, testing, and deploying Hugo based websites.
+Currently, this Docker image is designed to be used as a base image on CircleCI for building, testing, and deploying Hugo based websites.
 
-I plan to make this image useful for local testing and build/test/deploy on Travis CI as well in the future.
+I plan to make this image useful for local testing and build/test/deploy on other CI provider as well in the future.
+
 
 ## Using on CircleCI
 
-Using this image to build your Hugo generated website on CircleCI 2.0 can be as simple as using the following configuration in `.circleci/config.yml`:
+Using this image to build your Hugo generated website on CircleCI can be as simple as using the following configuration in `.circleci/config.yml`:
 
 ```
 version: 2.1
@@ -16,7 +17,6 @@ jobs:
   build:
     docker:
       - image: cibuilds/hugo:0.54
-    working_directory: ~/project
     steps:
       - checkout
       - run:
@@ -27,13 +27,24 @@ jobs:
           command: htmlproofer src/public --allow-hash-href --check-html --empty-alt-ignore --disable-external
 ```
 
+### Version
+
+`0.54` is the version of Hugo to use.
+You can use a complete SemVer version number such as `0.54.0` to specifically pin to that release.
+You can also use `0.54` which will use Hugo v0.54.0, and then `0.54.1`, and `0.54.2`, and so on as newer versions are released.
+
+You can also use `latest` to always use the latest version of Hugo or `nightly` to use the in-development version.
+`nightly` is a snapshot of whatever is in the `master` branch of Hugo, which is unreleased, updated at least once a day.
+
 In this example, we assume the Hugo files are in a directory called `src` in the repo. A full walkthrough on how to do this can be found on [CircleCI's blog](https://circleci.com/blog/build-test-deploy-hugo-sites/).
+
 
 ## Building The Images
 
 To prepare new images, I run `./gen-dockerfiles.sh` locally, passing it the current Hugo versions that I am "supporting". For example, for the initial release, I ran `./gen-dockerfiles.sh 0.18.1 0.19`.
 
 I then commit the resulting files and push up to GitHub. CircleCI builds everything and publishes the new Docker images to Docker Hub.
+
 
 ## Websites Using This & Examples
 
@@ -43,6 +54,7 @@ The following sites use Hugo and this image (and some have their config public):
 - <https://HugoNewsletter.com> ([repository](https://github.com/felicianotech/hugonewsletter.com))
 - <https://DocsThursday.com> ([repository](https://github.com/felicianotech/docsthursday.com))
 - <https://www.DiscourseHub.com> ([repository](https://github.com/discoursehub/www.discoursehub.com))
+
 
 ## Feedback & Contributing
 
