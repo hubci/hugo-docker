@@ -3,8 +3,10 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - build-releases
-      - build-nightly
+      - build-releases:
+          context: org-global
+      - build-nightly:
+          context: org-global
   nightly-build:
     triggers:
       - schedule:
@@ -13,7 +15,8 @@ workflows:
             branches:
               only: master
     jobs:
-      - build-nightly
+      - build-nightly:
+          context: org-global
 
 jobs:
   build-releases:
