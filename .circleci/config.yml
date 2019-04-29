@@ -3,8 +3,10 @@ version: 2.1
 workflows:
   main:
     jobs:
-      - build-releases
-      - build-nightly
+      - build-releases:
+          context: org-global
+      - build-nightly:
+          context: org-global
   nightly-build:
     triggers:
       - schedule:
@@ -13,7 +15,8 @@ workflows:
             branches:
               only: master
     jobs:
-      - build-nightly
+      - build-nightly:
+          context: org-global
 
 jobs:
   build-releases:
@@ -26,7 +29,7 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              docker login -u  $DOCKER_USER -p $DOCKER_PASS
+              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
               docker push cibuilds/hugo
             fi
   build-nightly:
@@ -38,5 +41,5 @@ jobs:
           command: ./build-nightly-image.sh
       - run:
           command: |
-            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
             docker push cibuilds/hugo:nightly
