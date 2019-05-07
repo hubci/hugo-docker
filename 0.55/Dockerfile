@@ -22,13 +22,8 @@ RUN apk add --no-cache \
 		build-base \
 		ca-certificates \
 		curl \
-		gcc \
 		git \
 		libcurl \
-		libc6-compat \
-		libgcc \
-		libxml2-dev \
-		libxslt-dev \
 		openssh \
 		rsync \
 		wget && \
