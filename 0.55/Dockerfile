@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
 
-FROM golang:1.12.4
+FROM golang:1.12
 
 ENV HUGO_VERSION=0.55.5
 ENV HUGO_DOWNLOAD_URL=https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.tar.gz
@@ -10,11 +10,7 @@ RUN wget "$HUGO_DOWNLOAD_URL" && \
 	cd hugo-${HUGO_VERSION} && \
 	buildDate=$(date +%Y-%m-%dT%H:%M:%S%z) && \
 	apt-get update && apt-get install -y build-essential gcc g++ libc++1 libc++-dev && \
-	#go build -a --tags netgo --tags extended --tags dev --ldflags "-w -X github.com/gohugoio/hugo/common/hugo.buildDate=${buildDate} -extldflags '-static'" -o bin/hugo *.go
-	#CGO_ENABLED=1 go build -a -tags extended -ldflags '-extldflags "-static"' -o bin/hugo
-	#CGO_ENABLED=1 go build -a -tags extended -ldflags '-extldflags "-static" -X github.com/gohugoio/hugo/common/hugo.buildDate=${buildDate}' -o bin/hugo
 	CGO_ENABLED=1 go build -a -tags extended -ldflags "-extldflags -static -X github.com/gohugoio/hugo/common/hugo.buildDate=${buildDate}" -o bin/hugo
-	#CGO_ENABLED=1 go build -a -tags extended -ldflags "-extldflags -static" -o bin/hugo
 
 
 FROM ruby:2.6-alpine
@@ -32,6 +28,7 @@ RUN apk add --no-cache \
 		gcc \
 		git \
 		g++ \
+		jq \
 		libcurl \
 		openssh \
 		rsync \
