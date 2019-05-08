@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
 
-FROM golang:1.12.4
+FROM golang:1.12
 
 ENV HUGO_VERSION=%%HUGO_VERSION%%
 ENV HUGO_DOWNLOAD_URL=https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.tar.gz
@@ -28,6 +28,7 @@ RUN apk add --no-cache \
 		gcc \
 		git \
 		g++ \
+		jq \
 		libcurl \
 		openssh \
 		rsync \
