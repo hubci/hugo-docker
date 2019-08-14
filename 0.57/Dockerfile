@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
 
-FROM golang:1.12
+FROM golang:1.12-alpine
 
 ENV HUGO_VERSION=0.57.0
 ENV HUGO_DOWNLOAD_URL=https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.tar.gz
@@ -9,7 +9,7 @@ RUN wget "$HUGO_DOWNLOAD_URL" && \
 	tar xzf v${HUGO_VERSION}.tar.gz && \
 	cd hugo-${HUGO_VERSION} && \
 	buildDate=$(date +%Y-%m-%dT%H:%M:%S%z) && \
-	apt-get update && apt-get install -y build-essential gcc g++ libc++1 libc++-dev && \
+	apk --no-cache --update add build-base git && \
 	CGO_ENABLED=1 go build -a -tags extended -ldflags "-extldflags -static -X github.com/gohugoio/hugo/common/hugo.buildDate=${buildDate}" -o bin/hugo
 
 
