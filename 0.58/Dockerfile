@@ -2,7 +2,7 @@
 
 FROM golang:1.12-alpine
 
-ENV HUGO_VERSION=0.58.0
+ENV HUGO_VERSION=0.58.1
 ENV HUGO_DOWNLOAD_URL=https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.tar.gz
 
 RUN wget "$HUGO_DOWNLOAD_URL" && \
@@ -17,7 +17,7 @@ FROM ruby:2.6-alpine
 
 LABEL maintainer="ricardo@feliciano.tech"
 
-ENV HUGO_VERSION=0.58.0
+ENV HUGO_VERSION=0.58.1
 
 RUN apk add --no-cache \
 		bash \
