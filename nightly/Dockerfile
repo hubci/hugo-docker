@@ -1,21 +1,22 @@
-FROM golang:1.12 as builder
+# vim:set ft=dockerfile:
 
-#RUN git clone --depth=1 https://github.com/gohugoio/hugo.git && \
-RUN mkdir /hugo && cd /hugo && \
+FROM cimg/go:1.13 as compiler
+
+RUN git clone --depth=1 https://github.com/gohugoio/hugo.git /hugo && \
+	cd /hugo && \
 	BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) && \
-	curl -sSL "https://github.com/gohugoio/hugo/tarball/master" | tar -xz --strip-components=1 && \
 	go build -ldflags "-X github.com/gohugoio/hugo/common/hugo.buildDate=${BUILD_DATE}" -tags extended
 
 
 FROM cibuilds/hugo:latest
 
-LABEL maintainer="ricardo@feliciano.tech"
+LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
 RUN rm /usr/bin/hugo
 
 ENV HUGO_VERSION=master
 
-COPY --from=builder hugo /usr/local/bin/
+COPY --from=compiler hugo /usr/local/bin/
 
 CMD ["htmlproofer","--help"]
 
