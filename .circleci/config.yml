@@ -30,9 +30,11 @@ jobs:
             
               echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
 
-              if git log -1 --pretty=%s | grep "[release]"; then
+              if git log -1 --pretty=%s | grep "\[release\]"; then
+                echo "Starting a release"
                 docker push cibuilds/hugo
               else
+                echo "Just publishing an edge image"
                 docker tag cibuilds/hugo:latest cibuilds/hugo:edge
                 docker push cibuilds/hugo:edge
               fi
