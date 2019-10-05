@@ -5,8 +5,6 @@ workflows:
     jobs:
       - build-releases:
           context: org-global
-      - build-nightly:
-          context: org-global
   nightly-build:
     triggers:
       - schedule:
@@ -29,8 +27,15 @@ jobs:
       - deploy:
           command: |
             if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            
               echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-              docker push cibuilds/hugo
+
+              if git log -1 --pretty=%s | grep "[release]"; then
+                docker push cibuilds/hugo
+              else
+                docker tag cibuilds/hugo:latest cibuilds/hugo:edge
+                docker push cibuilds/hugo:edge
+              fi
             fi
   build-nightly:
     machine: true
