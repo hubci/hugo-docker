@@ -15,6 +15,6 @@ for i in "${!sortedVersions[@]}"; do
 	git checkout -b hugo-v${version}
 	./gen-dockerfiles.sh ${version}
 	git add .
-	git commit -m "Add Hugo v${version}."
+	git commit -m "Add Hugo v${version} [release]."
 	git push -u origin hugo-v${version}
 done

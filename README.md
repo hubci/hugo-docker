@@ -36,6 +36,10 @@ You can also use `0.54` which will use Hugo v0.54.0, and then `0.54.1`, and `0.5
 You can also use `latest` to always use the latest version of Hugo or `nightly` to use the in-development version.
 `nightly` is a snapshot of whatever is in the `master` branch of Hugo, which is unreleased, updated at least once a day.
 
+`edge` - the edge tag is available as a testing ground for new changes to this image.
+Changes to `master` will appear immediately in the `hugo:edge` image.
+The next proper release will also include those changes unless they are removed before hand.
+
 In this example, we assume the Hugo files are in a directory called `src` in the repo. A full walkthrough on how to do this can be found on [CircleCI's blog](https://circleci.com/blog/build-test-deploy-hugo-sites/).
 
 
@@ -43,7 +47,10 @@ In this example, we assume the Hugo files are in a directory called `src` in the
 
 To prepare new images, I run `./gen-dockerfiles.sh` locally, passing it the current Hugo versions that I am "supporting". For example, for the initial release, I ran `./gen-dockerfiles.sh 0.18.1 0.19`.
 
-I then commit the resulting files and push up to GitHub. CircleCI builds everything and publishes the new Docker images to Docker Hub.
+That creates the Dockerfiles and the build script for them.
+For actual, proper releases though, I run the `./release.sh` script.
+This script runs `gen-dockerfiles.sh` but also does all the Git work to publish a proper release.
+The flag `[release]` is added to the commit message to initiate a release.
 
 
 ## Websites Using This & Examples
