@@ -1,45 +1,26 @@
 # vim:set ft=dockerfile:
 
-FROM golang:1.12-alpine
+# Base off of CircleCI's base Ubuntu image
+FROM cimg/base:2019.10
 
-ENV HUGO_VERSION=%%HUGO_VERSION%%
-ENV HUGO_DOWNLOAD_URL=https://github.com/gohugoio/hugo/archive/v${HUGO_VERSION}.tar.gz
+LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
-RUN wget "$HUGO_DOWNLOAD_URL" && \
-	tar xzf v${HUGO_VERSION}.tar.gz && \
-	cd hugo-${HUGO_VERSION} && \
-	buildDate=$(date +%Y-%m-%dT%H:%M:%S%z) && \
-	apk --no-cache --update add build-base git && \
-	CGO_ENABLED=1 go build -a -tags extended -ldflags "-extldflags -static -X github.com/gohugoio/hugo/common/hugo.buildDate=${buildDate}" -o bin/hugo
+ENV HUGO_VERSION %%HUGO_VERSION%%
+ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+
+# Install HTML Proofer - eventually to be replaced with non-Ruby alternative
+RUN apt-get update && apt-get install -y \
+		ruby-full \
+		# Needed for the Nokogiri gem
+		zlib1g-dev && \
+	gem install html-proofer --no-document
+
+RUN wget $HUGO_DOWNLOAD_URL && \
+	tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+	mv hugo /usr/bin/hugo && \
+	rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
 
 
-FROM ruby:2.6-alpine
-
-LABEL maintainer="ricardo@feliciano.tech"
-
-ENV HUGO_VERSION=%%HUGO_VERSION%%
-
-RUN apk add --no-cache \
-		bash \
-		binutils \
-		build-base \
-		ca-certificates \
-		curl \
-		gcc \
-		git \
-		g++ \
-		jq \
-		libcurl \
-		openssh \
-		rsync \
-		wget && \
-	gem install \
-		html-proofer \
-		nokogiri \
-	--no-document
-
-COPY --from=0 /go/hugo-${HUGO_VERSION}/bin/hugo /usr/bin/
-
-CMD ["htmlproofer","--help"]
+CMD ["htmlproofer", "--help"]
 
 EXPOSE 1313
