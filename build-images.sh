@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-docker build --file 0.60/Dockerfile -t cibuilds/hugo:latest -t cibuilds/hugo:0.60.1  -t cibuilds/hugo:0.60 .
+docker build --file 0.61/Dockerfile -t cibuilds/hugo:latest -t cibuilds/hugo:0.61.0  -t cibuilds/hugo:0.61 .

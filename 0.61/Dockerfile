@@ -1,0 +1,32 @@
+# vim:set ft=dockerfile:
+
+# Base off of CircleCI's base Ubuntu image
+FROM cimg/base:2019.11
+
+LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
+
+# Generate & set locale
+RUN locale-gen en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US:en
+ENV LC_ALL en_US.UTF-8
+
+ENV HUGO_VERSION 0.61.0
+ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+
+# Install HTML Proofer - eventually to be replaced with non-Ruby alternative
+RUN apt-get update && apt-get install -y \
+		ruby-full \
+		# Needed for the Nokogiri gem
+		zlib1g-dev && \
+	gem install html-proofer --no-document
+
+RUN wget $HUGO_DOWNLOAD_URL && \
+	tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz && \
+	mv hugo /usr/bin/hugo && \
+	rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
+
+
+CMD ["htmlproofer", "--help"]
+
+EXPOSE 1313
