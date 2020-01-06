@@ -2,8 +2,7 @@
 
 FROM cimg/go:1.13 as compiler
 
-RUN git clone --depth=1 https://github.com/gohugoio/hugo.git /hugo && \
-	cd /hugo && \
+RUN git clone --depth=1 https://github.com/gohugoio/hugo.git && cd hugo && \
 	BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) && \
 	go build -ldflags "-X github.com/gohugoio/hugo/common/hugo.buildDate=${BUILD_DATE}" -tags extended
 
