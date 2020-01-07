@@ -4,7 +4,8 @@ FROM cimg/go:1.13 as compiler
 
 RUN git clone --depth=1 https://github.com/gohugoio/hugo.git && cd hugo && \
 	BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) && \
-	go build -ldflags "-X github.com/gohugoio/hugo/common/hugo.buildDate=${BUILD_DATE}" -tags extended
+	go build -ldflags "-X github.com/gohugoio/hugo/common/hugo.buildDate=${BUILD_DATE}" -tags extended && \
+	ls -lah
 
 
 FROM cibuilds/hugo:latest
@@ -15,7 +16,7 @@ RUN rm /usr/bin/hugo
 
 ENV HUGO_VERSION=master
 
-COPY --from=compiler hugo /usr/local/bin/
+COPY --from=compiler /home/circleci/project/hugo/hugo /usr/local/bin/
 
 CMD ["htmlproofer","--help"]
 
