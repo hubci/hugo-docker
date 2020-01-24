@@ -14,7 +14,7 @@ RUN sudo apt-get update && sudo apt-get install -y \
 		ruby-full \
 		# Needed for the Nokogiri gem
 		zlib1g-dev && \
-	gem install html-proofer --no-document
+	sudo gem install html-proofer --no-document
 
 RUN wget $HUGO_DOWNLOAD_URL && \
 	tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz && \
