@@ -12,7 +12,7 @@ FROM cibuilds/hugo:latest
 
 LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
-RUN rm /usr/bin/hugo
+RUN sudo rm /usr/bin/hugo
 
 ENV HUGO_VERSION=master
 
