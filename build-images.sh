@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-docker build --file 0.77/Dockerfile -t cibuilds/hugo:latest -t cibuilds/hugo:0.77.0  -t cibuilds/hugo:0.77 .
+docker build --file 0.78/Dockerfile -t cibuilds/hugo:latest -t cibuilds/hugo:0.78.0  -t cibuilds/hugo:0.78 .
 
 
-docker build --file 0.77/Dockerfile -t hubci/hugo:latest -t hubci/hugo:0.77.0  -t hubci/hugo:0.77 .
+docker build --file 0.78/Dockerfile -t hubci/hugo:latest -t hubci/hugo:0.78.0  -t hubci/hugo:0.78 .
