@@ -5,11 +5,12 @@ FROM cimg/go:1.15
 
 LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
-ENV HUGO_VERSION 0.79.0
+ENV HUGO_VERSION 0.79.1
 ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 # Install HTML Proofer - eventually to be replaced with non-Ruby alternative
 RUN sudo apt-get update && sudo apt-get install -y \
+		libffi-dev \
 		rsync \
 		ruby-full \
 		# Needed for the Nokogiri gem
