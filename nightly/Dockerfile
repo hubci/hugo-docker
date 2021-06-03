@@ -1,6 +1,6 @@
 # vim:set ft=dockerfile:
 
-FROM cimg/go:1.13 as compiler
+FROM cimg/go:1.16 as compiler
 
 RUN git clone --depth=1 https://github.com/gohugoio/hugo.git && cd hugo && \
 	BUILD_DATE=$(date +%Y-%m-%dT%H:%M:%S%z) && \
