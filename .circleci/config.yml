@@ -18,8 +18,8 @@ workflows:
 
 jobs:
   build-releases:
-    machine:
-      image: ubuntu-2004:202104-01
+    # https://github.com/cibuilds/hugo/pull/213
+    machine: true
     steps:
       - checkout
       - run:
@@ -44,8 +44,8 @@ jobs:
               fi
             fi
   build-nightly:
-    machine:
-      image: ubuntu-2004:202104-01
+    # https://github.com/cibuilds/hugo/pull/213
+    machine: true
     steps:
       - checkout
       - run:
