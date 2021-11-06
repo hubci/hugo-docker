@@ -13,7 +13,9 @@ RUN sudo apt-get update && sudo apt-get install -y \
 		libffi-dev \
 		rsync \
 		ruby-full \
-		# Needed for the Nokogiri gem
+		# Needed for AsciiDoc support in Hugo \
+		asciidoctor \
+		# Needed for the Nokogiri gem \
 		zlib1g-dev && \
 	sudo gem install html-proofer --no-document
 
