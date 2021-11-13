@@ -17,12 +17,11 @@ RUN sudo apt-get update && sudo apt-get install -y \
 		asciidoctor \
 		# Needed for the Nokogiri gem \
 		zlib1g-dev && \
+	sudo apt-get clean && \
 	sudo gem install html-proofer --no-document
 
-RUN wget $HUGO_DOWNLOAD_URL && \
-	tar -xzf hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz && \
-	sudo mv hugo /usr/bin/hugo && \
-	rm hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz LICENSE README.md
+RUN curl -L $HUGO_DOWNLOAD_URL | tar xzv hugo && \
+	sudo mv hugo /usr/bin/hugo
 
 
 CMD ["htmlproofer", "--help"]
