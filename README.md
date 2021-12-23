@@ -11,12 +11,12 @@ I plan to make this image useful for local testing and build/test/deploy on othe
 
 Using this image to build your Hugo generated website on CircleCI can be as simple as using the following configuration in `.circleci/config.yml`:
 
-```
+```yaml
 version: 2.1
 jobs:
   build:
     docker:
-      - image: cibuilds/hugo:0.60
+      - image: cibuilds/hugo:0.91.2
     steps:
       - checkout
       - run:
@@ -29,9 +29,9 @@ jobs:
 
 ### Version
 
-`0.54` is the version of Hugo to use.
-You can use a complete SemVer version number such as `0.54.0` to specifically pin to that release.
-You can also use `0.54` which will use Hugo v0.54.0, and then `0.54.1`, and `0.54.2`, and so on as newer versions are released.
+`0.91.2` is the version of Hugo to use.
+You can use a complete SemVer version number such as `0.91.0` to specifically pin to that release.
+You can also use `0.91` which will use Hugo `0.91.0`, and then `0.91.1`, and `0.91.2`, and so on as newer versions are released.
 
 You can also use `latest` to always use the latest version of Hugo or `nightly` to use the in-development version.
 `nightly` is a snapshot of whatever is in the `master` branch of Hugo, which is unreleased, updated at least once a day.
@@ -61,6 +61,8 @@ The following sites use Hugo and this image (and some have their config public):
 - <https://HugoNewsletter.com> ([repository](https://github.com/felicianotech/hugonewsletter.com))
 - <https://DocsThursday.com> ([repository](https://github.com/felicianotech/docsthursday.com))
 - <https://www.DiscourseHub.com> ([repository](https://github.com/discoursehub/www.discoursehub.com))
+- [UNICEF Open Source Inventory](https://unicef.github.io/inventory/) ([repository](https://github.com/unicef/inventory))
+- [UNICEF Drones for SDGs Toolkit](https://unicef.github.io/drone-4sdgtoolkit/) ([repository](https://github.com/unicef/drone-4sdgtoolkit))
 
 
 ## Feedback & Contributing
