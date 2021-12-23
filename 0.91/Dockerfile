@@ -5,7 +5,7 @@ FROM cimg/go:1.17
 
 LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
-ENV HUGO_VERSION 0.91.1
+ENV HUGO_VERSION 0.91.2
 ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
 
 # Install HTML Proofer - eventually to be replaced with non-Ruby alternative
