@@ -1,9 +1,12 @@
 version: 2.1
 
+orbs:
+  sonar: hubci/sonar@1.0.0
+
 workflows:
   main:
     jobs:
-      - build-releases:
+      - build:
           context: org-global
   nightly-build:
     triggers:
@@ -11,31 +14,42 @@ workflows:
           cron: "0 6 * * *"
           filters:
             branches:
-              only: master
+              only: main
     jobs:
       - build-nightly:
           context: org-global
 
 jobs:
-  build-releases:
-    # https://github.com/cibuilds/hugo/pull/213
-    machine: true
+  build:
+    docker:
+      - image: cimg/base:2022.01
     steps:
       - checkout
+      - setup_remote_docker:
+          version: "20.10.12"
       - run:
           name: "Build Docker Images"
-          command: ./build-images.sh
-      - deploy:
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-            
-              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-
+            sed -e 's/hubci/cibuilds/g' ./build-images.sh > ./build-images-cibuilds.sh
+            ./build-images.sh
+            chmod +x ./build-images-cibuilds.sh
+            ./build-images-cibuilds.sh
+      - deploy:
+          name: "Publish Docker Images (main branch only)"
+          command: |
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+              
+              echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
+              
+              # an else block will be added in the future for a staging release
               if git log -1 --pretty=%s | grep "\[release\]"; then
-                echo "Starting a release"
-                docker push cibuilds/hugo
-                docker push hubci/hugo
+                echo "Publishing hubci/hugo to Docker Hub production."
+                sed -e 's/hubci/cibuilds/g' ./push-images.sh > ./push-images-cibuilds.sh
+                ./push-images.sh
+                chmod +x ./push-images-cibuilds.sh
+                ./push-images-cibuilds.sh
               else
+                # I'm not sure if this actually runs
                 echo "Just publishing an edge image"
                 docker tag cibuilds/hugo:latest cibuilds/hugo:edge
                 docker push cibuilds/hugo:edge
@@ -43,16 +57,25 @@ jobs:
                 docker push hubci/hugo:edge
               fi
             fi
+      - when:
+          condition:
+            equal: [main, << pipeline.git.branch >>]
+          steps:
+            - sonar/install:
+                version: "0.15.0"
+            - sonar/update-readme:
+                image: hubci/hugo
   build-nightly:
-    # https://github.com/cibuilds/hugo/pull/213
-    machine: true
+    docker:
+      - image: cimg/go:1.18
     steps:
       - checkout
+      - setup_remote_docker:
+          version: "20.10.12"
       - run:
           name: "Build Nightly Docker Image"
           command: ./build-nightly-image.sh
       - run:
           command: |
             echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
-            docker push cibuilds/hugo:nightly
             docker push hubci/hugo:nightly

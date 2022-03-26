@@ -1,12 +1,12 @@
 # vim:set ft=dockerfile:
 
 # Base off of CircleCI's Go image
-FROM cimg/go:1.17
+FROM cimg/go:1.18
 
 LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
-ENV HUGO_VERSION 0.96.0
-ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz
+ENV HUGO_VER 0.96.0
+ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VER}/hugo_extended_${HUGO_VER}_Linux-64bit.tar.gz
 
 # Install HTML Proofer - eventually to be replaced with non-Ruby alternative
 RUN sudo apt-get update && sudo apt-get install -y \
