@@ -7,7 +7,7 @@ workflows:
   main:
     jobs:
       - build:
-          context: org-global
+          context: main-context
   nightly-build:
     triggers:
       - schedule:
@@ -17,7 +17,7 @@ workflows:
               only: main
     jobs:
       - build-nightly:
-          context: org-global
+          context: main-context
 
 jobs:
   build:
