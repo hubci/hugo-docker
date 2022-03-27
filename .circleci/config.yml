@@ -49,12 +49,7 @@ jobs:
                 chmod +x ./push-images-cibuilds.sh
                 ./push-images-cibuilds.sh
               else
-                # I'm not sure if this actually runs
-                echo "Just publishing an edge image"
-                docker tag cibuilds/hugo:latest cibuilds/hugo:edge
-                docker push cibuilds/hugo:edge
-                docker tag hubci/hugo:latest hubci/hugo:edge
-                docker push hubci/hugo:edge
+                echo "Skipping publishing."
               fi
             fi
       - when:
