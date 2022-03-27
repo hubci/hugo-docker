@@ -10,11 +10,11 @@ ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO
 
 # Install HTML Proofer - eventually to be replaced with non-Ruby alternative
 RUN sudo apt-get update && sudo apt-get install -y \
+		# Needed for AsciiDoc support in Hugo \
+		asciidoctor \
 		libffi-dev \
 		rsync \
 		ruby-full \
-		# Needed for AsciiDoc support in Hugo \
-		asciidoctor \
 		# Needed for the Nokogiri gem \
 		zlib1g-dev && \
 	sudo apt-get clean && \
@@ -22,7 +22,6 @@ RUN sudo apt-get update && sudo apt-get install -y \
 
 RUN curl -L $HUGO_DOWNLOAD_URL | tar xzv hugo && \
 	sudo mv hugo /usr/bin/hugo
-
 
 CMD ["htmlproofer", "--help"]
 
