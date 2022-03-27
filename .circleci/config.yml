@@ -4,7 +4,7 @@ orbs:
   sonar: hubci/sonar@1.0.0
 
 workflows:
-  main:
+  main-wf:
     jobs:
       - build:
           context: main-context
@@ -14,7 +14,7 @@ workflows:
           cron: "0 6 * * *"
           filters:
             branches:
-              only: main
+              only: trunk
     jobs:
       - build-nightly:
           context: main-context
@@ -35,9 +35,9 @@ jobs:
             chmod +x ./build-images-cibuilds.sh
             ./build-images-cibuilds.sh
       - deploy:
-          name: "Publish Docker Images (main branch only)"
+          name: "Publish Docker Images (trunk branch only)"
           command: |
-            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+            if [ "${CIRCLE_BRANCH}" == "trunk" ]; then
               
               echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
               
@@ -59,7 +59,7 @@ jobs:
             fi
       - when:
           condition:
-            equal: [main, << pipeline.git.branch >>]
+            equal: [trunk, << pipeline.git.branch >>]
           steps:
             - sonar/install:
                 version: "0.15.0"
