@@ -8,7 +8,8 @@ RUN git clone --depth=1 https://github.com/gohugoio/hugo.git && cd hugo && \
 	ls -lah
 
 
-FROM hubci/hugo:latest
+ARG HUGO_VER
+FROM hubci/hugo:${HUGO_VER}
 
 LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
