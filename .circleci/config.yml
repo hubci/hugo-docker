@@ -57,7 +57,7 @@ jobs:
             equal: [trunk, << pipeline.git.branch >>]
           steps:
             - sonar/install:
-                version: "0.15.0"
+                version: "0.18.0"
             - sonar/update-readme:
                 image: hubci/hugo
   build-nightly:
@@ -67,6 +67,8 @@ jobs:
       - checkout
       - setup_remote_docker:
           version: "20.10.12"
+      - sonar/install:
+          version: "0.18.0"
       - run:
           name: "Build Nightly Docker Image"
           command: ./build-nightly-image.sh
