@@ -1,5 +1,6 @@
 # vim:set ft=dockerfile:
 
+ARG HUGO_VER
 FROM cimg/go:1.18 as compiler
 
 RUN git clone --depth=1 https://github.com/gohugoio/hugo.git && cd hugo && \
@@ -8,7 +9,6 @@ RUN git clone --depth=1 https://github.com/gohugoio/hugo.git && cd hugo && \
 	ls -lah
 
 
-ARG HUGO_VER
 FROM hubci/hugo:${HUGO_VER}
 
 LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
