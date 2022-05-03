@@ -22,11 +22,11 @@ workflows:
 jobs:
   build:
     docker:
-      - image: cimg/base:2022.01
+      - image: cimg/base:2022.04
     steps:
       - checkout
       - setup_remote_docker:
-          version: "20.10.12"
+          version: "20.10.14"
       - run:
           name: "Build Docker Images"
           command: |
