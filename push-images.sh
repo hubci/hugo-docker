@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # Do not edit by hand; please use build scripts/templates to make changes
 
-docker push hubci/hugo:0.101.0
-docker push hubci/hugo:0.101
+docker push hubci/hugo:0.102.0
+docker push hubci/hugo:0.102
