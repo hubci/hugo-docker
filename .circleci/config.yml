@@ -7,7 +7,7 @@ workflows:
   main-wf:
     jobs:
       - build:
-          context: main-context
+          context: docker-ctx
   nightly-build:
     triggers:
       - schedule:
@@ -17,16 +17,16 @@ workflows:
               only: trunk
     jobs:
       - build-nightly:
-          context: main-context
+          context: docker-ctx
 
 jobs:
   build:
     docker:
-      - image: cimg/base:2022.04
+      - image: cimg/base:2023.01
     steps:
       - checkout
       - setup_remote_docker:
-          version: "20.10.14"
+          version: "20.10.18"
       - run:
           name: "Build Docker Images"
           command: |
@@ -39,7 +39,7 @@ jobs:
           command: |
             if [ "${CIRCLE_BRANCH}" == "trunk" ]; then
               
-              echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+              echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
               
               # an else block will be added in the future for a staging release
               if git log -1 --pretty=%s | grep "\[release\]"; then
@@ -62,11 +62,11 @@ jobs:
                 image: hubci/hugo
   build-nightly:
     docker:
-      - image: cimg/go:1.18
+      - image: cimg/go:1.19
     steps:
       - checkout
       - setup_remote_docker:
-          version: "20.10.12"
+          version: "20.10.18"
       - sonar/install:
           version: "0.18.0"
       - run:
@@ -74,5 +74,5 @@ jobs:
           command: ./build-nightly-image.sh
       - run:
           command: |
-            echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin
+            echo $DOCKER_TOKEN | docker login -u $DOCKER_USER --password-stdin
             docker push hubci/hugo:nightly
