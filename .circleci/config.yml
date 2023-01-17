@@ -58,7 +58,7 @@ jobs:
           steps:
             - sonar/install:
                 version: "0.18.0"
-            - run: echo 'DOCKER_PASS=$DOCKER_TOKEN' >> $BASH_ENV
+            - run: echo 'export DOCKER_PASS=$DOCKER_TOKEN' >> $BASH_ENV
             - sonar/update-readme:
                 image: hubci/hugo
   build-nightly:
