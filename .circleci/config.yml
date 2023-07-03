@@ -22,11 +22,11 @@ workflows:
 jobs:
   build:
     docker:
-      - image: cimg/base:2023.01
+      - image: cimg/base:2023.07
     steps:
       - checkout
       - setup_remote_docker:
-          version: "20.10.18"
+          version: "20.10.24"
       - run:
           name: "Build Docker Images"
           command: |
@@ -67,9 +67,9 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker:
-          version: "20.10.18"
+          version: "20.10.24"
       - sonar/install:
-          version: "0.18.0"
+          version: "0.19.1"
       - run:
           name: "Build Nightly Docker Image"
           command: ./build-nightly-image.sh
