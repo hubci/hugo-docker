@@ -63,7 +63,7 @@ jobs:
                 image: hubci/hugo
   build-nightly:
     docker:
-      - image: cimg/go:1.19
+      - image: cimg/go:1.20
     steps:
       - checkout
       - setup_remote_docker:
