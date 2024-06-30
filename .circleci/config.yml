@@ -63,11 +63,10 @@ jobs:
                 image: hubci/hugo
   build-nightly:
     docker:
-      - image: cimg/go:1.21
+      - image: cimg/go:1.22
     steps:
       - checkout
-      - setup_remote_docker:
-          version: "20.10.24"
+      - setup_remote_docker
       - sonar/install:
           version: "0.19.1"
       - run:
