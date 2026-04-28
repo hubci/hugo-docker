@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 # Do not edit by hand; please use build scripts/templates to make changes
 
-docker build --file 0.160/Dockerfile -t hubci/hugo:0.160.1 -t hubci/hugo:0.160 --platform linux/amd64 .
+docker build --file 0.161/Dockerfile -t hubci/hugo:0.161.0 -t hubci/hugo:0.161 --platform linux/amd64 .
