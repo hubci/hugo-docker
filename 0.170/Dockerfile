@@ -5,8 +5,9 @@ FROM cimg/go:1.26
 
 LABEL maintainer="Ricardo N Feliciano <Ricardo@Feliciano.Tech>"
 
-ENV HUGO_VER 0.170.0
+ENV HUGO_VER 0.170.1
 ENV HUGO_DOWNLOAD_URL https://github.com/gohugoio/hugo/releases/download/v${HUGO_VER}/hugo_extended_${HUGO_VER}_Linux-64bit.tar.gz
+ENV DART_SASS_VER 1.108.2
 
 # Install HTML Proofer - eventually to be replaced with non-Ruby alternative
 RUN sudo apt-get update && sudo apt-get install -y \
@@ -21,7 +22,9 @@ RUN sudo apt-get update && sudo apt-get install -y \
 	sudo gem install html-proofer --no-document
 
 RUN curl -L $HUGO_DOWNLOAD_URL | tar xzv hugo && \
-	sudo mv hugo /usr/bin/hugo
+	sudo mv hugo /usr/bin/hugo && \
+	curl -sSL "https://github.com/sass/dart-sass/releases/download/1.108.2/dart-sass-1.108.2-linux-x64.tar.gz" | sudo tar -xz -C /usr/local/ && \
+	sudo ln -s /usr/local/dart-sass/sass /usr/local/bin/sass
 
 CMD ["htmlproofer", "--help"]
 
